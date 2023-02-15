@@ -7,6 +7,7 @@ x Save function rehauled to be string instead of integer.
 x Savecode generation and degradation into eventCounter array well-defined.
 x Separate event counters combined into one to make save function implementation easier.
 x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
+x Program separated into different files with "#pragma once" used liberally to avoid clases between all the "#includes".
 
 [bugs in this version: 1) save function is rudimentary and may be capable of being circumvented
                         (ie for pos=1, no string position other than first four are checked)
@@ -52,11 +53,9 @@ x Previously damage calculation was done by taking half of DEF or MDEF, but I fe
 
 Things to do:
 -------------
-1a) Ensure battle 1 can't be lost.
-1b) Ensure that with all religious beliefs, battle 1 can be won with >10 HP.
+1) Continue the plot at least up until Beyonder knowledge appears.
 2) Improve save function.
-3) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor)
-4) Separating the main file into subfiles called by the main file, grouping together save functions, battle functions etc. and reducing overall denseness.
+3) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor).
 
 
 Other notes:

@@ -17,9 +17,7 @@ x Program separated into different files with "#pragma once" used liberally to a
                               or for non-fixed battles, add a position in the savecode for the character level and allow complete stat allocation]
                        3) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
                             -solution: TBD. Maybe make it a string option then either conversion into integer for switch-cases or nested else-if
-                            ladder.
-                       4) the situation of atheistic belief + saving Lana does not execute properly, stopping after the first line of dialogue
-                            -solution: TBD.]
+                            ladder.]
 
 
 

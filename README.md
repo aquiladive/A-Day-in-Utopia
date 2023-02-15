@@ -1,5 +1,5 @@
 # A Day in Utopia
-You are an archaeologist who has long been searching for the mysterious vanished town of Utopia. When you believe you've finally found it, you amass a team of eleven for the expedition. But there is a reason why the town vanished as it did, and perhaps you would have been better off never looking into it at all...
+You are an archaeologist who has long been searching for the mysterious vanished town of Utopia. When you believe you've finally found it, you amass a team of eleven for the expedition and set off. But there is a reason why the town vanished as it did, and perhaps you would have been better off never looking into it at all...
 
 'A Day in Utopia' is a text adventure RPG with battle mechanics, based on the Chinese webnovel "Lord of the Mysteries" (LOTM) but capable of standing independently to some extent. It is a non-profit transformative work adhering to the principles of fair use.
 

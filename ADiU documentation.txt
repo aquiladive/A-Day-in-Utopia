@@ -1,0 +1,104 @@
+Documentation Log for "A Day in Utopia"
+
+
+v0.0.3:
+-------
+x Save function rehauled to be string instead of integer.
+x Savecode generation and degradation into eventCounter array well-defined.
+x Separate event counters combined into one to make save function implementation easier.
+x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
+
+[bugs in this version: 1) save function is rudimentary and may be capable of being circumvented
+                        (ie for pos=1, no string position other than first four are checked)
+                            -solution: TBD
+                       2) save function cannot keep track of variables like item usage and character stats.
+                            -solution: TBD, *for the latter, if the system is still fixed battles, maybe allow player to allocate stats all at once?
+                              or for non-fixed battles, add a position in the savecode for the character level and allow complete stat allocation]
+                       3) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
+                            -solution: TBD. Maybe make it a string option then either conversion into integer for switch-cases or nested else-if
+                            ladder.
+                       4) the situation of atheistic belief + saving Lana does not execute properly, stopping after the first line of dialogue
+                            -solution: TBD.]
+
+
+
+Latest changes in detail:
+-------------------------
+(1) Chapter 1
+x Divided into part 1 and part 2.
+x Part 1 deals up until the battle, part 2 continues until the choice is made to run with or without Lana.
+x Part 2 ends the demo and gives a savecode for it.
+
+(2) Saving
+x Save function was previously a 4-digit integer. However that wasn't enough to store the event counter combination details.
+x Hence it was changed into a string, and the arrayDegradation() function was properly implemented to convert the string to eventCounter[].
+x The save has an original name that is changed based on the eventCounter[] of the player. Illegal eventCounters[] are detected by the above function.
+x String length is also checked to ensure it is the same as the original savecode, but the actual letters beyond eventCounter[] aren't checked.
+x However, this is a rudimentary system and needs improvement as the program is developed.
+
+(3) Bounceshroom stats and beliefBenefits()
+x Messed around with both to try and make it that with all religious beliefs, battle 1 can be won with >10 HP.
+x The only way not to hit that eventCounter is to both be atheist and not help Lana with her seasickness.
+
+(4) statAllocation()
+x Changed code in the switch case so that the "point(s)" distinguishing for number of stat points chosen was just one piece of code for all cases
+  rather than being copy-pasted six times.
+
+(5) Change in damage calc
+x Damage is directly (ATK - DEF) or (MATK - MDEF).
+x Defending makes damage taken to be (ATK - 2*DEF) or (MATK - 2*MDEF).
+x Previously damage calculation was done by taking half of DEF or MDEF, but I felt like that devalued the two stats in comparison to HP.
+
+
+Things to do:
+-------------
+1a) Ensure battle 1 can't be lost.
+1b) Ensure that with all religious beliefs, battle 1 can be won with >10 HP.
+2) Improve save function.
+3) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor)
+4) Separating the main file into subfiles called by the main file, grouping together save functions, battle functions etc. and reducing overall denseness.
+
+
+Other notes:
+------------
+x Should 'flee' be added to battle options? This will make it user-thoughtful if randomising encounters (ie, during explorations).
+  Otherwise the battles are pre-determined.
+x Should there be a scalability factor for monsters? Ie, their stats increase based on the level you're at? This works for the current setting
+  but would be more appropriate for a game with randomised encounters (think Tactics Ogre KoL).
+
+x Remember 0=false, 1=true (or similar) for all integer-based functions and variables, so that consistency is ensured.
+
+x eventCounter[0] is for Lana, 1 means captain has been spoken to, 2 means second mate has been spoken to, 3 means Lana has been given the bottle
+  of essential scent, 4 means she has been saved and added to the party.
+x eventCounter[1] is about Gehrman, 1 means you've spoken to the captain, 2 means you've spoken to Azik about it
+x eventCounter[2] is about religious belief.
+x eventCounter[3] is for exploring the buildings.
+x eventCounter[4] is for winning the first battle with >10 HP.
+
+
+--------------
+Older versions
+--------------
+
+v0.0.2:
+-------
+x Battle functions introduced and completed.
+x Introduced randomness for hit chance and critical-hit chance.
+x Chapter 1 done without c1EventCounter[1] being set (ie, no choice).
+x Redid Prologue pt1 (the original story was Y/N being approved by the Society, but now their expedition is with friends + volunteers 
+including one Society member, as it doesn't make narrative sense that the Society would let a non-Beyonder head an expedition to a clearly
+supernatural place like Utopia).
+x Included string blankSpace to space out the text paragraphs.
+
+[bugs in this version: 1) yn() return was off due to adding "return 2;" to prevent "control reaches end of non-void function" warning
+                            -solution: remove the unnecessary return, code runs in spite of warning
+                       2) several issues with the battle functions, namely due to improper pointer usage and improper randomness of rand()
+                            -solution: remove battle randomness, change pointer usage in functions to call by value ]
+
+
+v0.0.1:
+-------
+x Started work.
+x Built opening menu, save functions, Prologue pt1 and pt2.
+x Defined the classes (Character to NPC, Protag and Monster; Item).
+x shipEventCounters are set.

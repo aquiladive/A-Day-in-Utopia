@@ -24,7 +24,9 @@ This project was made using only C++, as part of a college coding assignment. Th
 
 ## Setup
 Personally, I run this code using MinGW and Visual Studio Code (VSC). I would suggest the same for anyone wishing to try it.
+
 To install VSC: https://code.visualstudio.com/Download
+
 To run C++ files in VSC: https://code.visualstudio.com/docs/languages/cpp
 
 

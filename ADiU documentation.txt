@@ -1,4 +1,4 @@
-Documentation Log for "A Day in Utopia"
+## Documentation Log for "A Day in Utopia"
 
 
 v0.0.3:
@@ -7,7 +7,7 @@ x Save function rehauled to be string instead of integer.
 x Savecode generation and degradation into eventCounter array well-defined.
 x Separate event counters combined into one to make save function implementation easier.
 x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
-x Program separated into different files with "#pragma once" used liberally to avoid clases between all the "#includes".
+x Program separated into different files with "#pragma once" used liberally to avoid clashes between all the "#includes".
 
 [bugs in this version: 1) save function is rudimentary and may be capable of being circumvented
                         (ie for pos=1, no string position other than first four are checked)

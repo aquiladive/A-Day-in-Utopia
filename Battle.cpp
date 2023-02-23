@@ -7,11 +7,11 @@ using namespace std;
 //--
 
 int hp; //for the same thing as in "ADiU"
+int battleCounter[3]; //for factors that affect certain battles
 
 //--
 
 int itemUse(string Item);
-int inventoryCheck();
 void levelUp(int battleExp);
 void statAllocation();
 void beliefBenefits(int belief);
@@ -152,6 +152,8 @@ void battleMechanic(int opponents[]) {
     int battleExp=0;
     Monster Enemy[opponents[0]];
     Protag Reader=mainchar; //so that stat/status changes in battle don't affect overworld mainchar
+    if(battleCounter[0]==1)
+        Reader.HP=3*Reader.HP/4;
     
     for(int i=0;i<opponents[0];i++) {
         switch(opponents[i+1]) {
@@ -174,12 +176,22 @@ void battleMechanic(int opponents[]) {
             battleExp+=15;
             Enemy[i]=DarkWolf;
             break;
+
+            case 3:
+            Slime.mattack1="Acid";
+            Slime.mattack1effect="DEF Down 1";
+            Slime.mattack2="Ooze Trap";
+            Slime.mattack2effect="Trapped 1";
+            battleExp+=10;
+            Enemy[i]=Slime;
+            break;
         }
     }
     
     do {
         if(turn%2==0) {
             //player's turn
+            int invalid=0;
             if(Reader.Status=="DEF Down 1") {
                 Reader.Status="None";
                 Reader.DEF=mainchar.DEF;
@@ -205,8 +217,8 @@ void battleMechanic(int opponents[]) {
                 if(attackChoice>0 && attackChoice<=enemyCount) {
                     attackChoice--;
                     damage=Reader.attack()-Enemy[attackChoice].DEF;
-                    if(damage<0)
-                        damage=0;
+                    if(damage<=0)
+                        damage=1;
                     cout<<Reader.Name<<" deals "<<damage<<" damage."<<endl;
                     Enemy[attackChoice].HP=Enemy[attackChoice].HP-damage;
                     if(Enemy[attackChoice].HP<=0) {
@@ -221,6 +233,7 @@ void battleMechanic(int opponents[]) {
                 }
                 else {
                     cout<<"Invalid choice."<<endl;
+                    invalid=1;
                     turn++;
                 }
                 break;
@@ -233,6 +246,7 @@ void battleMechanic(int opponents[]) {
                 case 3:
                 if(inventoryCount==0) {
                     cout<<"You have no items to use."<<endl;
+                    invalid=1;
                     turn++;
                 }
                 else {
@@ -247,6 +261,7 @@ void battleMechanic(int opponents[]) {
                         switch(itemChoice) {
                             case 0:
                             cout<<"That item cannot be used."<<endl;
+                            invalid=1;
                             turn++;
                             break;
                             
@@ -254,7 +269,7 @@ void battleMechanic(int opponents[]) {
                             emblemUse++;
                             attackChoice=0;
                             cout<<"Blinding light falls from the sky, and you find yourself turning your face away for a second."<<endl;
-                            Enemy[0].HP-=(8+Reader.MATK);
+                            Enemy[0].HP-=(3+Reader.MATK);
                             if(Enemy[0].HP<=0) {
                                 cout<<Enemy[0].Name<<" has been defeated."<<endl;
                                 enemyCount--;
@@ -273,12 +288,36 @@ void battleMechanic(int opponents[]) {
                     } //end of the choice validity if
                     else {
                         cout<<"Invalid choie."<<endl;
+                        invalid=1;
                         turn++;
                     }
                 } //end of initial turn choice switch
             } turn++; //end of user turn
+            if(battleCounter[0]==1 && invalid!=1 && enemyCount!=0) {
+            //ie Lana is present and supposed to fight
+                cout<<"Lana attacks."<<endl;
+                srand(time(0));
+                int lana=rand()%2+1;
+                if(lana==1)
+                    damage=Lana.ATK-Enemy[0].DEF;
+                else
+                    damage=Lana.MATK-Enemy[0].MDEF;
+                cout<<"She deals "<<damage<<" damage."<<endl;
+                if(damage<=0)
+                    damage=1;
+                Enemy[0].HP-=damage;
+                if(Enemy[0].HP<=0) {
+                    cout<<Enemy[0].Name<<" has been defeated."<<endl;
+                    enemyCount--;
+                    for(int i=0;i<enemyCount;i++) {
+                        Enemy[i]=Enemy[i+1];
+                    }
+                }
+                else
+                    cout<<Enemy[0].Name<<" has "<<Enemy[0].HP<<" health remaining."<<endl;
+            }
         } //end of the first if
-        
+
         else {
             cout<<"\nEnemy turn:"<<endl;
 
@@ -313,8 +352,8 @@ void battleMechanic(int opponents[]) {
                     damage=damage-2*Reader.DEF;
                 else if(choice==2 && monsterChoice>1)
                     damage=damage-2*Reader.MDEF;
-                if(damage<0)
-                    damage=0;
+                if(damage<=0)
+                    damage=1;
                 Reader.HP=Reader.HP-damage;
                 cout<<Enemy[i].Name<<" deals "<<damage<<" damage."<<endl;
             }

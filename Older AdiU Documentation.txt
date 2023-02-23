@@ -1,0 +1,28 @@
+Latest Changes for:
+
+v0.0.3
+---------
+(1) Chapter 1
+x Divided into part 1 and part 2.
+x Part 1 deals up until the battle, part 2 continues until the choice is made to run with or without Lana.
+x Part 2 ends the demo and gives a savecode for it.
+
+(2) Saving
+x Save function was previously a 4-digit integer. However that wasn't enough to store the event counter combination details.
+x Hence it was changed into a string, and the arrayDegradation() function was properly implemented to convert the string to eventCounter[].
+x The save has an original name that is changed based on the eventCounter[] of the player. Illegal eventCounters[] are detected by the above function.
+x String length is also checked to ensure it is the same as the original savecode, but the actual letters beyond eventCounter[] aren't checked.
+x However, this is a rudimentary system and needs improvement as the program is developed.
+
+(3) Bounceshroom stats and beliefBenefits()
+x Messed around with both to try and make it that with all religious beliefs, battle 1 can be won with >10 HP.
+x The only way not to hit that eventCounter is to both be atheist and not help Lana with her seasickness.
+
+(4) statAllocation()
+x Changed code in the switch case so that the "point(s)" distinguishing for number of stat points chosen was just one piece of code for all cases
+  rather than being copy-pasted six times.
+
+(5) Change in damage calc
+x Damage is directly (ATK - DEF) or (MATK - MDEF).
+x Defending makes damage taken to be (ATK - 2*DEF) or (MATK - 2*MDEF).
+x Previously damage calculation was done by taking half of DEF or MDEF, but I felt like that devalued the two stats in comparison to HP.

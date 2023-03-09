@@ -17,7 +17,8 @@ void Chapter1_pt2b() {
     battleCounter[0]=1;
     cout<<"You travel for quite some time together without coming across anything strange -- or at least stranger -- when three dark shapes appear from behind a building. They are masses of what looks like sticky liquid, shaking and changing shape as they slide. It reminds you of jelly, if jelly was large and moved by itself. Ms. Lana freezes and stretches a hand for you to do the same. You both watch as they slide their way through, apparently unnoticing..."<<endl;
     cin>>blankSpace;
-    if(eventCounter[4]==0) {
+    
+    if(eventCounter[4]==0 || mainchar.LUCK<6) {
         cout<<"In the sudden silence, your injuries weigh on you more than before, and you stumble."<<endl;
         cout<<"There is a heartbeat's worth of pause, and then all three slimes change course for you."<<endl;
         cout<<"Ms. Lana whispers only one word into the air."<<endl;
@@ -40,41 +41,29 @@ void Chapter1_pt2b() {
     }
 
     else {
-
+        cout<<"Though you are rather tired, you manage to stay still as a statue until the three creatures move past. You inwardly sigh in relief as they disappear into the distance."<<endl;
+        cout<<"Ms. Lana moves forward with careful steps and you follow behind her, scanning the surroundings. So far there isn't any sign of trouble, though you're well aware you're an amateur in such situations and definitely not in your best state."<<endl;
+        cout<<"The two of you press your backs to the wall of another building, hiding yourselves in the shadow it casts, as you inch past the area."<<endl;
+        cout<<"In the distance you can see figures that are very much not human moving about, and you hope that they are as incapable of seeing through the dark as you are. Not that hopes alone will change reality, but it's all you have right now."<<endl;
+        cin>>blankSpace;
+        cout<<"LANA: No better time to have a seer with us..."<<endl;
+        cout<<"She says it under her breath, clearly to herself rather than you, but with the silence and proximity, you hear her well enough. Seer? What does Ms. Lana expect a fortune-teller to do? Accurately plan out your future for you?"<<endl;
+        cout<<"...could there be fortune-tellers like that? Could you have met them in Loen? Ms. Lana did give you an item capable of blasting creatures with light; you don't think you can put anything down as impossible."<<endl;
+        cout<<"You wonder if there'll be a time when you can ask these questions to her and get answers. You're willing to wait, but the unknown wraps around you like a dense fog and being able to dispel it would bring some relief if nothing else."<<endl;
+        cout<<"You cover a good distance with the good luck of not encountering any danger, when dark shadows flash ahead of you."<<endl;
+        cin>>blankSpace;
+        cout<<"Ms. Lana doesn't have to say a word. You immediately draw out your blade, jaw set, for whatever is coming. The shadows move around the two of you, but your reflexes aren't good enough to track them."<<endl;
+        cout<<"With a wave of Ms. Lana's hand, bursts of light erupt, causing the shadows to slow down."<<endl;
+        cout<<"You can now see them clearly. Two wolf-shaped beasts with fur as black as the night sky, their teeth dripping with salive. They have a somewhat tattered look to them, like travelling cloaks that underwent a journey, but travelling cloaks don't make sounds or attack."<<endl;
+        cout<<"...at least the ones you know."<<endl;
+        cout<<"Before you can further think of your metaphor, the wolves prowl towards you.\n"<<endl;
+        cin>>blankSpace;
+        cout<<"You face two Dark Wolves."<<endl;
+        
+        int opponents[3]={2,2,2};
+        battleMechanic(opponents);
     }
 
-    /* (the part where you're going to take a Beyonder characteristic guided by Lana)
-    cout<<"LANA: Which deity do you believe in?"<<endl;
-    switch(eventCounter[2]) {
-        case 1:
-        cout<<"YOU: The Evernight Goddess."<<endl;
-        cout<<"Ms. Lana smiles, in that sense of unifying over some commonality."<<endl;
-        break;
-        case 2:
-        cout<<"YOU: The Lord of Storms."<<endl;
-        cout<<"Ms. Lana winces and tries to hide her reaction, but you catch sight of it and suppress a frown yourself. The Evernight Church grants women many freedoms that the Church of Storm eschews, bringing a bit of friction between the two sets of believers. The current situation doesn't allow for any friction, however."<<endl;
-        break;
-        case 3:
-        cout<<"YOU: The Earth Mother."<<endl;
-        cout<<"She seems surprised. You can guess why. While there is an official church in Backlund and their efforts have been more recognised in the past years, the Earth Mother is a goddess more associated with Feynapotter than with Loen."<<endl;
-        break;
-        case 4:
-        cout<<"You consider, then decide to respond honestly."<<endl;
-        cout<<"YOU: The God of Steam and Machinery."<<endl;
-        cout<<"She nods and you're a bit relieved by the easy reaction. There is currently some bad blood between the Church and Loen since the former supported Intis in the World War a decade ago, and while it's somewhat rattled your faith, you continue to believe in the essence of progress and civilisation."<<endl;
-        break;
-        case 5:
-        cout<<"YOU: The Fool."<<endl;
-        cout<<"Ms. Lana doesn't seem as surprised by that as you would expect her to be. It's a fledging belief in Loen, but the straightforward tenants and values of the Church of the Fool attracted you. For being devoted to an ancient awakened god, the sensibilties of the Church are rather forward-minded. Gehrman Sparrow as an angel is somewhat frightening, but being on the same side will probably be its protection."<<endl;
-        break;
-        case 6:
-        cout<<"You honestly consider whether you should reply to Ms. Lana, but she's waiting for an answer and considering what you're both currently going through, you can't really muster the energy to lie.\n"<<endl;
-        cout<<"YOU: Nobody. I'm not religious.\n"<<endl;
-        cout<<"She startles, looking as if she met a believer of an evil god rather than an atheist, and you don't let it affect you. It's not the first time you've gotten that reaction, though your friends are all respectful of your decision.\n"<<endl;
-        cout<<"It takes her a moment to compose herself.\n"<<endl;
-        cout<<"LANA: I was going to tell you to pray devoutly to the god you believe in... but I suppose I can only tell you to think of that which will keep you strong."<<endl;
-    }
-    */
     cout<<"\nFor now, the demo ends here."<<endl;
     cout<<"Thank you for playing."<<endl;
     exit(0);
@@ -278,7 +267,7 @@ void lanaConverse2b() {
                 if(eventCounter[6]==1) {
                     cout<<"LANA: What's Calderon City...?"<<endl;
                     cout<<"LANA: Ah, well, you see, there are different dimensions that exist."<<endl;
-                    cout<<"LANA: Our physical reality is the one we live in, but there are also places like the Spirit World, inhabited by -- as the name suggests -- various spirits, and the Astral Plane, which I'm not much informed of except that it is where the domain of the deities can be find. Their divine kingdoms."<<endl;
+                    cout<<"LANA: Our physical reality is the one we live in, but there are also places like the Spirit World, inhabited by -- as the name suggests -- various spirits, and the Astral Plane, which I'm not much informed of except that it is where the domain of the deities can be found. Their divine kingdoms."<<endl;
                     cin>>blankSpace;
                     cout<<"LANA: Back to Calderon City-- until the Fourth Epoch, the God of Death was a huge force that dominated the Spirit World. Many creatures found there still are loyal to Him and His kin."<<endl;
                     cout<<"LANA: Then as you know, He went mad and the other deities allied to take Him down, causing a war unlike any other."<<endl;

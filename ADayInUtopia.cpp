@@ -28,6 +28,7 @@ void about();
 int yn();
 int inventoryCheck();
 int inventoryCheckName(string item);
+void inventoryArrange();
 
 void Tutorial1(), Tutorial2(), Tutorial3(); //1 explains exploration, 2 explains battle, 3 explains stats
 void ending1(), ending2();
@@ -68,6 +69,15 @@ int inventoryCheckName(string Name) {
             return 1;
     }
     return 0;
+}
+
+void inventoryArrange() {
+    for(int i=0;i<inventoryCount;i++) {
+        if(inventory[i].itemName=="") {
+            inventory[i]=inventory[i-1];
+            inventory[i-1].clear();
+        }
+    }
 }
 
 //--

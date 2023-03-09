@@ -9,6 +9,8 @@ x battleMechanics() updated to include NPC action.
 x Character class updated to include Beyonder pathway choice, although story-wise it hasn't been reached yet.
 x battleCounter added to keep track of events that cause changes in battle (ie low player health, NPC assistance).
 x NPC switched from private to public class due to above need for accessing their variables.
+x battleMechanics() also updated to include the possibility of NPC spell-usage.
+x Character class changed to 1) include the MP variable, 2) make Status a string array.
 
 [bugs in this version: ...]
 
@@ -35,7 +37,7 @@ x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
 Latest changes in detail:
 -------------------------
 1) Chapter 1 pt 2b
-x Expanded upon to include a battle and an exploration.
+x Expanded upon to include a battle and an exploration (for the slime encounter), and one battle (for the wolf encounter).
 x 1.2a still not done.
 
 2) Slime stats, Lana's emblem
@@ -45,14 +47,24 @@ x Lana's emblem nerfed, Slime stats adjusted.
 3) Story subsections
 x Current divisions are as Prologue, Chapter 1 pt 1 and 2, Chapter 1 pt 2a and Chapter 1 pt 2b (the last two being separate files as they are separate routes).
 
+4) Character class
+x In preparation for the future when the protag becomes a Beyonder and may be able to use spells, the Character class was changed to include the int variable MP which measures Mana Points of the player and is made use of in casting spells.
+x The previous string Status of Character has also been changed into an array to hold multiple buffs/debuffs.
+
+5) battleMechanics()
+x Function updated to include NPC actions.
+x For Lana specifically, it includes two ordinary attacks (based on ATK and MATK) and two spells (one using a Strengthened attack herself and another conferring Strengthened status to the player).
+x The statusCheck() and statusAlign() functions have also beem added to Battle.cpp to ensure proper noting of player statuses during the battle, as Status has now been made an array.
+
+6) inventoryArrange()
+x Function with similar purpose as statusAlign() - to ensure that when an item is cleared, the array is reordered so that there are no empty spaces between items.
 
 
 Things to do:
 -------------
 1) Complete Chapter 1 part 2b.
-2) Divide story file into separate chapters.
-3) Improve save function.
-4) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor)
+2) Improve save function (maybe using file handling?).
+3) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor)
 
 
 Other notes:

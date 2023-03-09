@@ -6,30 +6,31 @@ using namespace std;
 
 class Character {
     public:
-    int HP, DEF, ATK, MATK, MDEF, LUCK;
-    string Name,Status;
+    int HP, MP, DEF, ATK, MATK, MDEF, LUCK;
+    string Name,Status[4];
     Character() {
         //only Monster array initialisation
     }
-    Character (string n, int x, int y, int z, int i, int j, int k) {
+    Character (string n, int a, int b, int x, int y, int z, int i, int j) {
         Name=n;
-        HP=x;
-        ATK=y;
-        DEF=z;
-        MATK=i;
-        MDEF=j;
-        LUCK=k;
+        HP=a;
+        MP=b;
+        ATK=x;
+        DEF=y;
+        MATK=z;
+        MDEF=i;
+        LUCK=j;
     }
     virtual int attack()=0;
 };
 
 class NPC: public Character {
     using Character::Character; //copies the constructor from Character
+    public:
     int attack() {
-        return ATK;
+        int choice=rand()%4+1;
+        return choice;
     }
-    //using NPC instead of directly using Character because as it has a virtual function, direct objects are not allowed
-    //the virtual function is important because it's defined differently for Protag and for Monster
 };
 
 class Protag: public Character {
@@ -183,20 +184,20 @@ class Item {
 
 //--
 
-Protag mainchar("\0",25,5,5,5,5,5);
-NPC Azik("Mr. Azik", 100,50,50,50,50,50);
-NPC Lana("Lana",40,7,7,9,9,5);
+Protag mainchar("\0",25,5,5,5,5,5,5);
+NPC Azik("Mr. Azik", 100,50,50,50,50,50,50);
+NPC Lana("Lana",40,10,7,7,9,9,5);
 
 //--
 
-Monster Bounceshroom("Bounceshroom",6,9,1,10,5,0);
-Monster Slime("Slime",10,7,4,8,6,0);
-Monster DarkWolf("Dark Wolf",12,15,4,10,3,2);
-Monster MetalCube("Metal Cube",10,8,10,6,10,0);
+Monster Bounceshroom("Bounceshroom",6,0,9,1,10,5,0);
+Monster Slime("Slime",10,0,7,4,8,6,0);
+Monster DarkWolf("Dark Wolf",12,0,15,4,10,3,2);
+Monster MetalCube("Metal Cube",10,0,8,10,6,10,0);
 
 //--
 
-Item inventory[5];
+Item inventory[9];
 int inventoryCount;
 
 Item bottle("bottle of essential scent","A gift from the second mate. It contains a mixture that can soothe seasickness on inhaling.",1);

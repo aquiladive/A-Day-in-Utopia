@@ -12,9 +12,13 @@ int battleCounter[3]; //for factors that affect certain battles
 //--
 
 int itemUse(string Item);
+void inventoryArrange();
 void levelUp(int battleExp);
 void statAllocation();
 void beliefBenefits(int belief);
+void beyonderEffects(string effect[], int count);
+int statusCheck(string effect[], int count);
+string statusAlign(string effect[], int count, int pos);
 
 void battleMechanic(int opponents[]);
 
@@ -22,16 +26,41 @@ void battleEnding(), Tutorial3();
 
 //--
 
-void beyonderEffects(string effect) {
-    if(effect=="DEF Down 1") {
-        cout<<"The spell weakens you."<<endl;
+void beyonderEffects(string effect[], int count) {
+    for(int i=0;i<count;i++) {
+        if(effect[i]=="DEF Down 1") {
+            cout<<"The spell weakens you."<<endl;
+        }
+        else if(effect[i]=="Dizzy") {
+            cout<<"The spell makes it hard for you to concentrate."<<endl;
+        }
+        else if(effect[i]=="Trapped 1") {
+            cout<<"The spell tightens around you painfully."<<endl;
+        }
     }
-    else if(effect=="Dizzy") {
-        cout<<"The spell makes it hard for you to concentrate."<<endl;
+}
+
+int statusCheck(string effect[], int count) {
+    for(int i=0;i<count;i++) {
+        for(int j=1;j<count;j++) {
+            if(effect[i]==effect[j] && effect[i]!="None") {
+                effect[j]="None";
+                count--;
+            }
+        }
     }
-    else if(effect=="Trapped 1") {
-        cout<<"The spell tightens around you painfully."<<endl;
+    return count;
+}
+
+//a very inelegant solution, the whole multiple status thing has to be improved on
+string statusAlign(string effect[], int count, int pos) {
+    for(int i=0;i<count-1;i++) {
+        if(effect[i]=="None") {
+            effect[i]=effect[i+1];
+            effect[i+1]="None";
+        }
     }
+    return effect[pos];
 }
 
 int itemUse(string Item) {
@@ -145,7 +174,7 @@ void statAllocation() {
 
 void battleMechanic(int opponents[]) {
     //array opponents should have [0] be number of enemies, followed by each position integer indicating which enemy it is
-    int turn=0;
+    int turn=0, statusCount=0;
     int choice, choice2, attackChoice, itemChoice, damage=0;
     int enemyCount=opponents[0];
     int enemyAttack[2]; //2 to hold choice + damage
@@ -191,19 +220,37 @@ void battleMechanic(int opponents[]) {
     do {
         if(turn%2==0) {
             //player's turn
-            int invalid=0;
-            if(Reader.Status=="DEF Down 1") {
-                Reader.Status="None";
-                Reader.DEF=mainchar.DEF;
+            int invalid=0, damageBonus=1;
+            
+            statusCount=statusCheck(Reader.Status, statusCount);
+            for(int i=0;i<statusCount;i++) {
+                Reader.Status[i]=statusAlign(Reader.Status, statusCount, i);
             }
-            if(Reader.Status=="Trapped 1") {
-                cout<<"You feel as if you're being squeezed painfully."<<endl;
-                cout<<"You take 2 points of damage."<<endl;
-                Reader.HP-=2;
-                Reader.Status="None";
+
+            for(int i=0;i<statusCount;i++) {
+                if(Reader.Status[i]=="DEF Down 1") {
+                    Reader.Status[i]="None";
+                    Reader.DEF=mainchar.DEF;
+                    statusCount--;
+                }
+                if(Reader.Status[i]=="Trapped 1") {
+                    cout<<"You feel as if you're being squeezed painfully."<<endl;
+                    cout<<"You take 2 points of damage."<<endl;
+                    Reader.HP-=2;
+                    Reader.Status[i]="None";
+                    statusCount--;
+                }
+                if(Reader.Status[i]=="Strengthened") {
+                    cout<<"A prayer of light is embedded in you."<<endl;
+                    damageBonus=1.25;
+                    Reader.Status[i]="None";
+                    statusCount--;
+                }
             }
+
             if(Reader.HP<=0)
                 battleEnding();
+            
             cout<<"\nYour turn:"<<endl;
             cout<<"Do you:\n1) Attack\n2) Defend\n3) Use Item"<<endl;
             cin>>choice;
@@ -216,7 +263,7 @@ void battleMechanic(int opponents[]) {
                 cin>>attackChoice;
                 if(attackChoice>0 && attackChoice<=enemyCount) {
                     attackChoice--;
-                    damage=Reader.attack()-Enemy[attackChoice].DEF;
+                    damage=Reader.attack()*damageBonus-Enemy[attackChoice].DEF;
                     if(damage<=0)
                         damage=1;
                     cout<<Reader.Name<<" deals "<<damage<<" damage."<<endl;
@@ -269,7 +316,7 @@ void battleMechanic(int opponents[]) {
                             emblemUse++;
                             attackChoice=0;
                             cout<<"Blinding light falls from the sky, and you find yourself turning your face away for a second."<<endl;
-                            Enemy[0].HP-=(3+Reader.MATK);
+                            Enemy[0].HP-=(3+Reader.MATK*damageBonus);
                             if(Enemy[0].HP<=0) {
                                 cout<<Enemy[0].Name<<" has been defeated."<<endl;
                                 enemyCount--;
@@ -282,6 +329,7 @@ void battleMechanic(int opponents[]) {
                             if(emblemUse==5) {
                                 cout<<"The emblem loses its lustre, looking as if about to break. You don't think you can use it any more."<<endl;
                                 emblem.clear();
+                                inventoryArrange();
                                 inventoryCount--;
                             } //end of the emblemUse if
                         } //end of itemChoice switch
@@ -293,28 +341,60 @@ void battleMechanic(int opponents[]) {
                     }
                 } //end of initial turn choice switch
             } turn++; //end of user turn
+            
             if(battleCounter[0]==1 && invalid!=1 && enemyCount!=0) {
             //ie Lana is present and supposed to fight
-                cout<<"Lana attacks."<<endl;
-                srand(time(0));
-                int lana=rand()%2+1;
-                if(lana==1)
+                int attacking=1;
+                if(Lana.MP<10)
+                    Lana.MP++;
+                int lana=Lana.attack();
+                if(lana<4)
+                    cout<<"Lana attacks."<<endl;
+                switch(lana) {
+                    case 1:
                     damage=Lana.ATK-Enemy[0].DEF;
-                else
+                    break;
+                    case 2:
                     damage=Lana.MATK-Enemy[0].MDEF;
-                cout<<"She deals "<<damage<<" damage."<<endl;
-                if(damage<=0)
-                    damage=1;
-                Enemy[0].HP-=damage;
-                if(Enemy[0].HP<=0) {
-                    cout<<Enemy[0].Name<<" has been defeated."<<endl;
-                    enemyCount--;
-                    for(int i=0;i<enemyCount;i++) {
-                        Enemy[i]=Enemy[i+1];
+                    break;
+                    case 3:
+                    if(Lana.MP>6) {
+                        damage=Lana.MATK*1.25-Enemy[0].MDEF;
+                        Lana.MP-=5;
                     }
+                    else
+                        damage=Lana.MATK-Enemy[0].MDEF;
+                    break;
+                    case 4:
+                    if(Lana.MP>6) {
+                        cout<<"Lana hums a tune. Out of place in battle, but it brings a surge to you, filling you with new power."<<endl;
+                        cout<<"You are under the status Strengthened."<<endl;
+                        Lana.MP-=5;
+                        attacking=0;
+                        Reader.Status[statusCount]="Strengthened";
+                        statusCount++;
+                        statusCount=statusCheck(Reader.Status, statusCount);
+                    }
+                    else {
+                        damage=Lana.MATK-Enemy[0].MDEF;
+                    }
+                    break;
                 }
-                else
-                    cout<<Enemy[0].Name<<" has "<<Enemy[0].HP<<" health remaining."<<endl;
+                if(attacking!=0) {
+                    if(damage<=0)
+                        damage=1;
+                    cout<<"She deals "<<damage<<" damage."<<endl;
+                    Enemy[0].HP-=damage;
+                    if(Enemy[0].HP<=0) {
+                        cout<<Enemy[0].Name<<" has been defeated."<<endl;
+                        enemyCount--;
+                        for(int i=0;i<enemyCount;i++) {
+                            Enemy[i]=Enemy[i+1];
+                        }
+                    }
+                    else
+                        cout<<Enemy[0].Name<<" has "<<Enemy[0].HP<<" health remaining."<<endl;
+                }
             }
         } //end of the first if
 
@@ -336,14 +416,26 @@ void battleMechanic(int opponents[]) {
             for(int i=0;i<enemyCount;i++) {
                 damage=Enemy[i].attack();
                 if(monsterChoice!=1) {
-                    if(monsterChoice==2)
-                        Reader.Status=Enemy[i].mattack1effect;
-                    else if(monsterChoice==3)
-                        Reader.Status=Enemy[i].mattack2effect;
-                    beyonderEffects(Reader.Status);
+                    if(monsterChoice==2) {
+                        Reader.Status[statusCount]=Enemy[i].mattack1effect;
+                        statusCount++;
+                        statusCount=statusCheck(Reader.Status, statusCount);
+                    }
+                    else if(monsterChoice==3) {
+                        Reader.Status[statusCount]=Enemy[i].mattack2effect;
+                        statusCount++;
+                        statusCount=statusCheck(Reader.Status, statusCount);
+                    }
+                    beyonderEffects(Reader.Status, statusCount);
                 }
-                if(Reader.Status=="DEF Down 1")
-                    Reader.DEF-=2;
+                for(int i=0;i<statusCount;i++) {
+                    Reader.Status[i]=statusAlign(Reader.Status, statusCount, i);
+                }
+                for(int i=0;i<statusCount;i++) {
+                    if(Reader.Status[statusCount]=="DEF Down 1") {
+                        Reader.DEF-=2;
+                    }
+                }
                 if(monsterChoice==1)
                     damage=damage-Reader.DEF;
                 else if(monsterChoice>1)
@@ -367,6 +459,7 @@ void battleMechanic(int opponents[]) {
             turn++;
         }
     } while(enemyCount!=0);
+
     hp=Reader.HP;
     mainchar.battleExp+=battleExp;
     cout<<endl;

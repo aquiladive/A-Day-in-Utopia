@@ -19,7 +19,7 @@ The current version of the game is a demo that only reaches till Chapter 1.
 
 
 ## Technologies
-This project was made using only C++, as part of a college coding assignment. The only non-user-defined files included are the basic ones such as iostream and cstdlib.
+This project was made using only C++, as part of a college coding assignment. All included user-made files are present in this repository itself.
 
 
 ## Setup

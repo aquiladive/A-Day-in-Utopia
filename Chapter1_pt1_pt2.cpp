@@ -284,7 +284,7 @@ void Chapter1_pt2() {
                     cout<<"YOU: I'm not leaving you. We'll go together; it doesn't matter how slow."<<endl;
                     cout<<"\nShe watches you with surprise, and then a growing... you're not sure how to put it? Pleasant resignation?"<<endl;
                     cout<<"Despite her firm words, there could be no way she faced the situation with that much inner calm. She must have feared dying at some point, just like you did."<<endl;
-                    cout<<"There are answers you desperately want to seek from her, but travelling together, you can leave it for when both of you are safe."<<endl;
+                    cout<<"There are answers you desperately want to seek from her, but travelling together, you can leave it for another time."<<endl;
                     savecode3=generateSave(3);
                     cout<<"\n(Savecode for this point is "<<savecode3<<")"<<endl;
                     Chapter1_pt2b();

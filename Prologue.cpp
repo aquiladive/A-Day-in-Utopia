@@ -135,7 +135,8 @@ void Prologue_pt1() {
                 cout<<"MR. AZIK: I hadn't heard of Utopia until a few years after it vanished. I do regret never having gotten the chance to visit it."<<endl;
                 cout<<"YOU: Don't we all. The tales of it always treaded the lines between normality and oddity."<<endl;
                 cout<<"After some small talk, the two of you part ways."<<endl;
-                cout<<"\n(savecode for this point is 7745)"<<endl;
+                generateSave(0);
+                cout<<"\n(The game has been saved.)"<<endl;
                 Prologue_pt2();
             }
         }
@@ -159,7 +160,7 @@ void Prologue_pt2() {
 
 
 void shipExplore() {
-    string blankSpace, savecode1;
+    string blankSpace;
     int shipchoice;
     do {
         cout<<"Do you--"<<endl;
@@ -230,8 +231,8 @@ void shipExplore() {
         }
     } while(shipchoice!=0);
     //the first place savecode is generated hence pos=1;
-    savecode1=generateSave(1);
-    cout<<"\n(savecode for this point is "<<savecode1<<")"<<endl;
+    generateSave(1);
+    cout<<"\n(The game has been saved.)"<<endl;
     Chapter1_pt1();
 }
 

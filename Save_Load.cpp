@@ -8,178 +8,178 @@ using namespace std;
 //--
 
 int eventCounter[7];
+int saveLoc;
+char first;
 
 //--
 
-int valid(string save);
-int load(string save);
-string generateSave(int pos);
+int valid(fstream& file);
+int load(char first);
+void generateSave(int pos);
 
-int arrayDegradation(string save);
+int arrayDegradation(fstream& file);
 
 //--
 
-int valid(string save) {
-    if(save=="7745")
+int valid(fstream& file) {
+    file>>first;
+    if(first=='7')
         return 1;
-    else if((save[0]=='y' || save[0]=='t' || save[0]=='d') && arrayDegradation(save)==1) {
+    else if((first=='y' || first=='t' || first=='d') && arrayDegradation(file)==1) {
         return 1;
     }
     else
         return 0;
 }
 
-int load(string save) {
-    if(save=="7745")
+int load() {
+    if(first=='7')
         return 1;
-    else if(save[0]=='y') {
-        if(eventCounter[0]==2) {
-            inventoryCount++;
-            inventory[0]=bottle;
-        }
+    else if(first=='y')
         return 2;
-    }
-    else if(save[0]=='t') {
-        if(eventCounter[0]==2) {
-            inventory[inventoryCount]=bottle;
-            inventoryCount++;
-        }
-        if(eventCounter[0]>2) {
-            inventory[inventoryCount]=emblem;
-            inventoryCount++;
-        }
+    else if(first=='t') {
         beliefBenefits(eventCounter[2]);
         return 3;
     }
-    else if(save[0]=='d') {
-        if(eventCounter[0]==2) {
-            inventory[inventoryCount]=bottle;
-            inventoryCount++;
-        }
-        if(eventCounter[0]>2) {
-            inventory[inventoryCount]=emblem;
-            inventoryCount++;
-        }
+    else if(first=='d') {
+        beliefBenefits(eventCounter[2]);
         return 4;
     }
-}
-
-int arrayDegradation(string save) {
-    //the opposite of generateSave
-    //to be changed as more event counters are added
-    int length, i;
-    if(save[0]=='y' && save.length()==7) {
-        length=2;
-        for(i=0;i<length;i++) {
-            if(save[i+2]=='L')
-                eventCounter[i]=0;
-            else if(save[i+2]=='5')
-                eventCounter[i]=1;
-            else if(save[i+2]=='3')
-                eventCounter[i]=2;
-            else if(save[i+2]=='m')
-                eventCounter[i]=3;
-            else
-                return 0; //immediately marking code as invalid
-        }
-        return 1;
-    }
-    
-    else if(save[0]=='t' && save.length()==7) {
-        length=5;
-        for(i=0;i<length;i++) {
-            if(save[i+2]=='L')
-                eventCounter[i]=0;
-            else if(save[i+2]=='5')
-                eventCounter[i]=1;
-            else if(save[i+2]=='3')
-                eventCounter[i]=2;
-            else if(save[i+2]=='m')
-                eventCounter[i]=3;
-            else if(save[i+2]=='z')
-                eventCounter[i]=4;
-            else if(save[i+2]=='D')
-                eventCounter[i]=5;
-            else if(save[i+2]=='2')
-                eventCounter[i]=6;
-            else
-                return 0;
-        }
-        if((eventCounter[2]<6 || eventCounter[0]==3) && eventCounter[4]==1)
-            return 1;
-        else if(eventCounter[4]==0)
-            return 1;
-        else
-        //this means that if the player is atheist *and* has not saved Lana, it is impossible for them to perfect the fifth event (ie [4]=1)
-            return 0;
-    }
-    
-    else if(save[0]=='d' && save.length()==8) {
-        length=6;
-        for(i=0;i<length;i++) {
-            if(save[i+2]=='L')
-                eventCounter[i]=0;
-            else if(save[i+2]=='5')
-                eventCounter[i]=1;
-            else if(save[i+2]=='3')
-                eventCounter[i]=2;
-            else if(save[i+2]=='m')
-                eventCounter[i]=3;
-            else if(save[i+2]=='z')
-                eventCounter[i]=4;
-            else if(save[i+2]=='D')
-                eventCounter[i]=5;
-            else if(save[i+2]=='2')
-                eventCounter[i]=6;
-            else
-                return 0;
-        }
-        if(eventCounter[0]<3 && eventCounter[2]==6 && eventCounter[4]==1)
-            return 0;
-        else
-            return 1;
-    }
-    
     else
         return 0;
 }
 
-string generateSave(int pos) {
+int arrayDegradation(fstream& file) {
+    //the opposite of generateSave
     //to be changed as more event counters are added
-    int length, i;
-    string save;
+    int i=0, stop=1;
+    char letter;
+    //loading eventCounter
+    while(!file.eof()) {
+        file>>letter;
+        if(letter=='L')
+            eventCounter[i]=0;
+        else if(letter=='5')
+            eventCounter[i]=1;
+        else if(letter=='3')
+            eventCounter[i]=2;
+        else if(letter=='m')
+            eventCounter[i]=3;
+        else if(letter=='n')
+            eventCounter[i]=4;
+        else if(letter=='G')
+            eventCounter[i]=5;
+        else if(letter=='2')
+            eventCounter[i]=6;
+        else if(letter=='R')
+            eventCounter[i]=7;
+        else if(letter=='w')
+            eventCounter[i]=8;
+        else if(letter=='b')
+            eventCounter[i]=9;
+        else if(letter=='|')
+            break;
+        else
+            stop=0;
+        i++;
+    }
+    //loading inventory
+    i=0;
+    file>>letter;
+    while(!file.eof()) {
+        if(letter=='b')
+            inventory[i]=bottle;
+        else if(letter=='e')
+            inventory[i]=emblem;
+        else if(letter=='m')
+            inventory[i]=map;
+        else if(letter=='s')
+            inventory[i]=slime;
+        else if(letter=='|')
+            break;
+        else
+            stop=0;
+        i++;
+        inventoryCount=i;
+        file>>letter;
+    }
+    return stop;
+    //find a way to load character level + stats
+}
+
+void generateSave(int pos) {
+    //to be changed as more event counters are added
+    char first, code;
+    int i, length;
+    fstream file;
+    switch(saveLoc) {
+        case 1: file.open("save_1.txt",ios::trunc | ios::out);
+        break;
+        case 2: file.open("save_2.txt",ios::trunc | ios::out);
+        break;
+        case 3: file.open("save_3.txt",ios::trunc | ios::out);
+        break;
+    }
+
     switch(pos) {
+        case 0:
+        length=0;
+        first='7';
+        break;
+
         case 1:
         length=2;
-        save="yhArNam";
+        first='y';
         break;
         
         case 2:
-        length=4;
-        save="tiAnzUn";
+        length=5;
+        first='t';
         break;
         
         case 3:
-        length=6;
-        save="dooMsdaY";
+        length=5;
+        first='d';
         break;
     }
+    file<<first;
     for(i=0;i<length;i++) {
         if(eventCounter[i]==0)
-            save[i+2]='L';
+            code='L';
         else if(eventCounter[i]==1)
-            save[i+2]='5';
+            code='5';
         else if(eventCounter[i]==2)
-            save[i+2]='3';
+            code='3';
         else if(eventCounter[i]==3)
-            save[i+2]='m';
+            code='m';
         else if(eventCounter[i]==4)
-            save[i+2]='z';
+            code='n';
         else if(eventCounter[i]==5)
-            save[i+2]='D';
+            code='G';
         else if(eventCounter[i]==6)
-            save[i+2]='2';
+            code='2';
+        else if(eventCounter[i]==7)
+            code='R';
+        else if(eventCounter[i]==8)
+            code='w';
+        else if(eventCounter[i]==9)
+            code='b';
+        file<<code;
     }
-    return save;
+    file<<'|';
+    if(inventoryCount>0) {
+        for(i=0;i<inventoryCount;i++) {
+            if(inventory[i].itemName=="bottle of essential scent")
+                code='b';
+            else if(inventory[i].itemName=="Lana's emblem")
+                code='e';
+            else if(inventory[i].itemName=="map")
+                code='m';
+            else if(inventory[i].itemName=="slime remnant")
+                code='s';
+            file<<code;
+        }
+        file<<'|';
+    }
+    file.close();
 }
-

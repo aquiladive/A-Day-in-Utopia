@@ -10,6 +10,7 @@
 
 #pragma once
 #include<iostream>
+#include<fstream>
 #include "Classes.cpp"
 #include "Save_Load.cpp"
 #include "Battle.cpp"
@@ -25,7 +26,7 @@ void Intro(), Entrance();
 void openingMenu();
 void about();
 
-int yn();
+int yn(), chartoint();
 int inventoryCheck();
 int inventoryCheckName(string item);
 void inventoryArrange();
@@ -51,6 +52,12 @@ int yn() {
         cout<<"Invalid choice."<<endl;
         yn();
     }
+}
+
+int chartoint() {
+    string ch;
+    cin>>ch;
+    return ch[0]-'0';
 }
 
 int inventoryCheck() {
@@ -106,20 +113,39 @@ void openingMenu() {
     cout<<"1) Start\t 2) Load"<<endl;
     cout<<"3) About\t 4) Quit"<<endl;
     cout<<"(insert choice)"<<endl;
-    int opchoice;
+    int opchoice, surety=0;
     cin>>opchoice;
     switch (opchoice) {
         case 1:
+        while(surety==0) {
+            cout<<"Choose location to save: 1, 2, 3"<<endl;
+            saveLoc=chartoint();
+            if(saveLoc<0 || saveLoc>3) {
+                while(saveLoc<0 || saveLoc>3) {
+                    cout<<"Invalid location. Please input again."<<endl;
+                    saveLoc=chartoint();
+                }
+            }
+            cout<<"Are you sure? If there is an existing save in this location, it will be overwritten."<<endl;
+            surety=yn();
+        }
         Prologue_pt1();
         break;
         
         case 2: {
-            cout<<"Insert save code: ";
-            string savecode;
-            cin>>savecode;
-
-            //the savecode for when I need to test something real quick and can't be bothered to play through the game
-            if(savecode=="prototest") {
+            cout<<"Choose which to load:"<<endl;
+            cout<<"1. Save_1\n2. Save_2\n3. Save_3"<<endl;
+            fstream file;
+            cin>>saveLoc;
+            if(saveLoc==1)
+                file.open("save_1.txt",ios::in);
+            else if(saveLoc==2)
+                file.open("save_2.txt",ios::in);
+            else if(saveLoc==3)               
+                file.open("save_3.txt",ios::in);
+            else if(saveLoc==63) {
+                //for when I need to test something real quick and can't be bothered to play through the game
+                cout<<"Special save triggered."<<endl;
                 eventCounter[4]=0;
                 eventCounter[0]=4;
                 mainchar.Name="Arcelia";
@@ -129,26 +155,33 @@ void openingMenu() {
                 mainchar.ATK+=5;
                 Chapter1_pt2b();
             }
-
-            if(valid(savecode)) {
-                cout<<"Please enter your name."<<endl;
-                cin>>mainchar.Name;
-                cout<<endl;
-                int position=load(savecode);
-                if(position==1)
-                    Prologue_pt2();
-                else if(position==2)
-                    Chapter1_pt1();
-                else if(position==3)
-                    Chapter1_pt2();
-                else {
+            else
+                cout<<"Invalid choice."<<endl;
+            
+            if(!file)
+                cout<<"Save cannot be found."<<endl;
+            else {
+                if(valid(file)) {
+                    cout<<"Please enter your name."<<endl;
+                    cin>>mainchar.Name;
+                    cout<<endl;
+                    int position=load();
+                    if(position==0)
+                        cout<<"Error."<<endl;
+                    else if(position==1)
+                        Prologue_pt2();
+                    else if(position==2)
+                        Chapter1_pt1();
+                    else if(position==3)
+                        Chapter1_pt2();
+                    else {
                     cout<<"\nYou have currently completed the demo."<<endl;
                     cout<<"Please wait until further updates have been added."<<endl;
+                    }
                 }
-            }
-            else {
-                cout<<"Invalid code.\n"<<endl;
-                openingMenu();
+                else {
+                    cout<<"Invalid save."<<endl;
+                }
             }
         }
         break;
@@ -170,6 +203,7 @@ void about() {
     cout<<"Having gotten that out of the way, A Day in Utopia is a multiple-ending text-adventure RPG. Controls are simple."<<endl;
     cout<<"During the story flow, you may be prompted to input text and make choices."<<endl;
     cout<<"Battles run according to standard JRPG. If you have no experience with it, the in-game tutorial will guide you through your first battle."<<endl;
+    cout<<"The game will save itself at designated savepoints.\n"<<endl;
     cout<<"This is currently only a demo version upto Chapter 1. Hope you enjoy!\n"<<endl;
     openingMenu();
 }

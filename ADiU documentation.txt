@@ -11,6 +11,7 @@ x battleCounter added to keep track of events that cause changes in battle (ie l
 x NPC switched from private to public class due to above need for accessing their variables.
 x battleMechanics() also updated to include the possibility of NPC spell-usage.
 x Character class changed to 1) include the MP variable, 2) make Status a string array.
+x Finally rehauled the save/load function to be file-based rather than a savecode string. This makes saving and loading a lot easier as well as capable of storing more info than just eventCounter.
 
 [bugs in this version: ...]
 
@@ -22,15 +23,11 @@ x Savecode generation and degradation into eventCounter array well-defined.
 x Separate event counters combined into one to make save function implementation easier.
 x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
 
-[bugs in this version: 1) save function is rudimentary and may be capable of being circumvented
-                        (ie for pos=1, no string position other than first four are checked)
-                            -solution: TBD
-                       2) save function cannot keep track of variables like item usage and character stats.
-                            -solution: TBD, *for the latter, if the system is still fixed battles, maybe allow player to allocate stats all at once?
+[bugs in this version: 2) save function cannot keep track of variables like item usage and character stats.
+                            -solution: use the new save function to store these details, or *for the latter, if the system is still fixed battles, maybe allow player to allocate stats all at once?
                               or for non-fixed battles, add a position in the savecode for the character level and allow complete stat allocation]
                        3) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
-                            -solution: TBD. Maybe make it a string option then either conversion into integer for switch-cases or nested else-if
-                            ladder.
+                            -solution: chartoint() function converts string to int by taking first character of input and subtracting '0'.
 
 
 
@@ -59,11 +56,19 @@ x The statusCheck() and statusAlign() functions have also beem added to Battle.c
 6) inventoryArrange()
 x Function with similar purpose as statusAlign() - to ensure that when an item is cleared, the array is reordered so that there are no empty spaces between items.
 
+7) Saving function
+x Saving is not done by asking the user to remember a savecode but by using text files to store gameplay info.
+x There are three save files - save_1, save_2 and save_3. Can easily be extended into more if the game ends up having a lot of possible routes.
+
+8) chartoint()
+x Integer input is now taken from user by taking a string input whose first character is converted into an integer by subtracting '0'.
+x This is to avoid infinite looping of "Invalid input" when user provides a character input when integer is required.
+
 
 Things to do:
 -------------
 1) Complete Chapter 1 part 2b.
-2) Improve save function (maybe using file handling?).
+2) Save to file character level, character stats and item usage (ie like Lana's emblem).
 3) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor)
 
 
@@ -82,7 +87,7 @@ x eventCounter[1] is about Gehrman, 1 means you've spoken to the captain, 2 mean
 x eventCounter[2] is about religious belief.
 x eventCounter[3] is for exploring the buildings.
 x eventCounter[4] is for winning the first battle with >10 HP.
-x eventCounter[5] is for noticing the buildings (ch1.pt2b).
+x eventCounter[5] is for noticing the other buildings (ch1.pt2b).
 x eventCounter[6] is for Calderón City (ch1.pt2b).
 
 x battleCounter[0] is for if Lana is present in the party or not.

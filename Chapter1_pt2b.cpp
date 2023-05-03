@@ -54,7 +54,7 @@ void Chapter1_pt2b() {
         cin>>blankSpace;
         cout<<"Ms. Lana doesn't have to say a word. You immediately draw out your blade, jaw set, for whatever is coming. The shadows move around the two of you, but your reflexes aren't good enough to track them."<<endl;
         cout<<"With a wave of Ms. Lana's hand, bursts of light erupt, causing the shadows to slow down."<<endl;
-        cout<<"You can now see them clearly. Two wolf-shaped beasts with fur as black as the night sky, their teeth dripping with salive. They have a somewhat tattered look to them, like travelling cloaks that underwent a journey, but travelling cloaks don't make sounds or attack."<<endl;
+        cout<<"You can now see them clearly. Two wolf-shaped beasts with fur as black as the night sky, their teeth dripping with saliva. They have a somewhat tattered look to them, like travelling cloaks that underwent a journey, but travelling cloaks don't make sounds or attack."<<endl;
         cout<<"...at least the ones you know."<<endl;
         cout<<"Before you can further think of your metaphor, the wolves prowl towards you.\n"<<endl;
         cin>>blankSpace;
@@ -124,7 +124,7 @@ void explore1_Ch1_2b() {
                 cout<<"YOU: That... you..."<<endl;
                 cout<<"LANA: I purified it. It can still be dangerous, no doubt, and requires care but it should be possible to handle."<<endl;
                 cout<<"She looks drained by what she has done, but still alert."<<endl;
-                cout<<"Quickly grabbing and putting on gloves from your backpack, although you're not sure if they would hold against... whatever this is... you pick it up."<<endl;
+                cout<<"Quickly grabbing and putting on gloves from your backpack, although you're not sure if they would hold against... whatever this is... that you're picking up."<<endl;
                 slime.obtain();
                 inventory[inventoryCount]=slime;
                 inventoryCount++;
@@ -294,3 +294,5 @@ void lanaConverse2b() {
         }
     } while(end!=1);
 }
+
+/* Tutorial 5: In certain exploration sessions, you must be quick as the longer you stay, the more chance there is that monsters will find and attack you. Every few times you explore, such an attack may occur. It will also increase your fatigue, making you weaker in subsequent attacks. Hence, keep an eye on your fatigue and attempt to explore properly but also quickly.*/

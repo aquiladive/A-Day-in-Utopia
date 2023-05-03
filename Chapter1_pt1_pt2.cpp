@@ -3,7 +3,7 @@
 
 //--
 
-int yn();
+int yn(), chartoint();
 
 void Chapter1_pt1(), Chapter1_pt2();
 void Chapter1_pt2a(), Chapter1_pt2b();
@@ -13,7 +13,7 @@ void ending2();
 //--
 
 void Chapter1_pt1() {
-    string blankSpace, savecode2;
+    string blankSpace;
     int belief;
     cout<<"..."<<endl;
     cout<<"\nIt is one early dawn when you and the team catch sight of an island at the horizon.\nUtopia."<<endl;
@@ -36,7 +36,7 @@ void Chapter1_pt1() {
     cout<<"5) The Fool- ruler of the Spirit World, god of secrecy and change"<<endl;
     cout<<"6) Atheism- in a world where the miracles of gods are aplenty, you can't deny Their existence, but with the grief that abounds, you can believe that They care little for the matters of humans."<<endl;
     do {
-        cin>>belief;
+        belief=chartoint();
         if(belief>0 && belief<7)
             eventCounter[2]=belief;
         else
@@ -195,8 +195,8 @@ void Chapter1_pt1() {
     else
         eventCounter[4]=0;
         
-    savecode2=generateSave(2);
-    cout<<"\n(Savecode for this point is "<<savecode2<<")"<<endl;
+    generateSave(2);
+    cout<<"\n(The game has been saved.)"<<endl;
     
     Chapter1_pt2();
 }
@@ -204,7 +204,6 @@ void Chapter1_pt1() {
 
 void Chapter1_pt2() {
     string blankSpace;
-    string savecode3;
 
     if(eventCounter[4]==1)
         cout<<"Breathing heavily, injured, but not too badly, you stand over the corpses of your fungal enemies."<<endl;
@@ -247,8 +246,8 @@ void Chapter1_pt2() {
                 cout<<"\nShe watches you with surprise, and then a growing... you're not sure how to put it? Pleasant resignation?"<<endl;
                 cout<<"Despite her firm words, there could be no way she faced the situation with that much inner calm. She must have feared dying at some point, just like you did."<<endl;
                 cout<<"There are answers you desperately want to seek from her, but travelling together, you can leave it for when both of you are safe."<<endl;
-                savecode3=generateSave(3);
-                cout<<"\n(Savecode for this point is "<<savecode3<<")"<<endl;
+                generateSave(3);
+                cout<<"\n(The game has been saved.)"<<endl;
                 Chapter1_pt2b();
             }
             
@@ -272,8 +271,8 @@ void Chapter1_pt2() {
                         cout<<"making a small prayer for her and your friends."<<endl;
                     else
                         cout<<"hoping the best for her and your friends."<<endl;
-                    savecode3=generateSave(3);
-                    cout<<"\n(Savecode for this point is "<<savecode3<<")"<<endl;
+                    generateSave(3);
+                    cout<<"\n(The game has been saved.)"<<endl;
                     Chapter1_pt2a();
                 }
                 else {
@@ -285,8 +284,8 @@ void Chapter1_pt2() {
                     cout<<"\nShe watches you with surprise, and then a growing... you're not sure how to put it? Pleasant resignation?"<<endl;
                     cout<<"Despite her firm words, there could be no way she faced the situation with that much inner calm. She must have feared dying at some point, just like you did."<<endl;
                     cout<<"There are answers you desperately want to seek from her, but travelling together, you can leave it for another time."<<endl;
-                    savecode3=generateSave(3);
-                    cout<<"\n(Savecode for this point is "<<savecode3<<")"<<endl;
+                    generateSave(3);
+                    cout<<"\n(The game has been saved.)"<<endl;
                     Chapter1_pt2b();
                 }
             }
@@ -302,7 +301,6 @@ void Chapter1_pt2() {
         cout<<"The thought that your friends who supported you might be cornered by these same monsters makes your throat clog, and you push away that thought before it can affect you too much."<<endl;
         cout<<"You should leave that for when you're safe. Right now, every drop of energy you have can be dedicated only to escaping alive."<<endl;
     }
-    savecode3=generateSave(3);
-    cout<<"\n(Savecode for this point is "<<savecode3<<")"<<endl;
+    cout<<"\n(The game has been saved.)"<<endl;
     Chapter1_pt2a();
 }

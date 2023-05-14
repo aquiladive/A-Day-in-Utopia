@@ -63,7 +63,8 @@ void Chapter1_pt2b() {
         int opponents[3]={2,2,2};
         battleMechanic(opponents);
     }
-
+    generateSave(4);
+    cout<<"(The game has been saved.)"<<endl;
     cout<<"\nFor now, the demo ends here."<<endl;
     cout<<"Thank you for playing."<<endl;
     exit(0);
@@ -153,6 +154,13 @@ void explore1_Ch1_2b() {
             case 5:
             cout<<"Are you sure? This will end the current exploration period."<<endl;
             surety=yn();
+            if(surety==1) {
+                generateSave(4);
+                cout<<"(The game has been saved.)"<<endl;
+                cout<<"\nFor now, the demo ends here."<<endl;
+                cout<<"Thank you for playing."<<endl;
+                exit(0);
+            }
         }
     } while(surety!=1);
 }

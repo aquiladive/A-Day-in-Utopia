@@ -301,6 +301,7 @@ void Chapter1_pt2() {
         cout<<"The thought that your friends who supported you might be cornered by these same monsters makes your throat clog, and you push away that thought before it can affect you too much."<<endl;
         cout<<"You should leave that for when you're safe. Right now, every drop of energy you have can be dedicated only to escaping alive."<<endl;
     }
+    generateSave(3);
     cout<<"\n(The game has been saved.)"<<endl;
     Chapter1_pt2a();
 }

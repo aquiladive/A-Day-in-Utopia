@@ -25,7 +25,7 @@ int valid(fstream& file) {
     file>>first;
     if(first=='7')
         return 1;
-    else if((first=='y' || first=='t' || first=='d') && arrayDegradation(file)==1) {
+    else if((first=='y' || first=='t' || first=='d' || first=='U') && arrayDegradation(file)==1) {
         return 1;
     }
     else
@@ -44,6 +44,10 @@ int load() {
     else if(first=='d') {
         beliefBenefits(eventCounter[2]);
         return 4;
+    }
+    else if(first=='U') {
+        beliefBenefits(eventCounter[2]);
+        return 5;
     }
     else
         return 0;
@@ -83,14 +87,40 @@ int arrayDegradation(fstream& file) {
             stop=0;
         i++;
     }
+    
+    file>>letter;
+    if(letter=='a')
+        mainchar.Level=1;
+    else if(letter=='b')
+        mainchar.Level=2;
+    else if(letter=='c')
+        mainchar.Level=3;
+    else if(letter=='d')
+        mainchar.Level=4;
+    else if(letter=='e')
+        mainchar.Level=5;
+    else if(letter=='f')
+        mainchar.Level=6;
+    else if(letter=='g')
+        mainchar.Level=7;
+    else if(letter=='h')
+        mainchar.Level=8;
+    else
+        stop=0;
+    //find a way to load character stats
+    
     //loading inventory
     i=0;
+    file>>letter;
     file>>letter;
     while(!file.eof()) {
         if(letter=='b')
             inventory[i]=bottle;
-        else if(letter=='e')
+        else if(letter=='e') {
             inventory[i]=emblem;
+            file>>letter;
+            emblemUse=letter-'0';
+        }
         else if(letter=='m')
             inventory[i]=map;
         else if(letter=='s')
@@ -104,7 +134,6 @@ int arrayDegradation(fstream& file) {
         file>>letter;
     }
     return stop;
-    //find a way to load character level + stats
 }
 
 void generateSave(int pos) {
@@ -141,6 +170,11 @@ void generateSave(int pos) {
         length=5;
         first='d';
         break;
+
+        case 4:
+        length=7;
+        first='U';
+        break;
     }
     file<<first;
     for(i=0;i<length;i++) {
@@ -167,12 +201,34 @@ void generateSave(int pos) {
         file<<code;
     }
     file<<'|';
+
+    if(mainchar.Level==1)
+        file<<'a';
+    else if(mainchar.Level==2)
+        file<<'b';
+    else if(mainchar.Level==3)
+        file<<'c';
+    else if(mainchar.Level==4)
+        file<<'d';
+    else if(mainchar.Level==5)
+        file<<'e';
+    else if(mainchar.Level==6)
+        file<<'f';
+    else if(mainchar.Level==7)
+        file<<'g';
+    else if(mainchar.Level==8)
+        file<<'h';
+    file<<'|';
+
     if(inventoryCount>0) {
         for(i=0;i<inventoryCount;i++) {
             if(inventory[i].itemName=="bottle of essential scent")
                 code='b';
-            else if(inventory[i].itemName=="Lana's emblem")
+            else if(inventory[i].itemName=="Lana's emblem") {
                 code='e';
+                file<<code;
+                code=emblemUse+'0';
+            }
             else if(inventory[i].itemName=="map")
                 code='m';
             else if(inventory[i].itemName=="slime remnant")
@@ -181,5 +237,6 @@ void generateSave(int pos) {
         }
         file<<'|';
     }
+    
     file.close();
 }

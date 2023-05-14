@@ -14,7 +14,7 @@ int battleCounter[3]; //for factors that affect certain battles
 int itemUse(string Item);
 void inventoryArrange();
 void levelUp(int battleExp);
-void statAllocation();
+void statAllocation(int statpt);
 void beliefBenefits(int belief);
 void beyonderEffects(string effect[], int count);
 int statusCheck(string effect[], int count);
@@ -111,13 +111,13 @@ void levelUp(int battleExp) {
         cout<<"You have levelled up to Lv."<<mainchar.Level<<"."<<endl;
         if(mainchar.Level==2)
             Tutorial3();
-        statAllocation();
+        statAllocation(5);
     }
 }
 
-void statAllocation() {
+void statAllocation(int statpt) {
     //this also only holds for levelling up once
-    int statpt=5, stat, pt;
+    int stat, pt;
     while (statpt>0) {
         cout<<"Your current stats are:\n(1) HP = "<<mainchar.HP<<endl;
         cout<<"(2) ATK = "<<mainchar.ATK<<endl;
@@ -328,7 +328,7 @@ void battleMechanic(int opponents[]) {
                                 cout<<Enemy[0].Name<<" has "<<Enemy[0].HP<<" health remaining."<<endl;
                             if(emblemUse==5) {
                                 cout<<"The emblem loses its lustre, looking as if about to break. You don't think you can use it any more."<<endl;
-                                emblem.clear();
+                                inventory[choice2-1].clear();
                                 inventoryArrange();
                                 inventoryCount--;
                             } //end of the emblemUse if

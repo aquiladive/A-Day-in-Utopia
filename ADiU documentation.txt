@@ -23,9 +23,8 @@ x Savecode generation and degradation into eventCounter array well-defined.
 x Separate event counters combined into one to make save function implementation easier.
 x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
 
-[bugs in this version: 2) save function cannot keep track of variables like item usage and character stats.
-                            -solution: use the new save function to store these details, or *for the latter, if the system is still fixed battles, maybe allow player to allocate stats all at once?
-                              or for non-fixed battles, add a position in the savecode for the character level and allow complete stat allocation]
+[bugs in this version: 2) save function cannot keep track of character stats.
+                            -solution: allowing players to reallocate stats upon loading (perhaps temporary, have to look into fixing stats as well)
                        3) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
                             -solution: chartoint() function converts string to int by taking first character of input and subtracting '0'.
 
@@ -68,7 +67,7 @@ x This is to avoid infinite looping of "Invalid input" when user provides a char
 Things to do:
 -------------
 1) Complete Chapter 1 part 2b.
-2) Save to file character level, character stats and item usage (ie like Lana's emblem).
+2) Save to file character stats.
 3) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor)
 
 

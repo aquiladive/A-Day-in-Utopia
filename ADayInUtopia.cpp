@@ -2,8 +2,8 @@
  * A Day In Utopia, v.0.0.4
 
  * Latest changes: Chapter 1 pt 2b continued
- * Current bugs: 1) rudimentary save system
- .               2) string input to integer option
+ * Current bugs: 1) save system
+
  * (please refer to documentation log for further details)
 
 **************************************************************************/
@@ -166,6 +166,12 @@ void openingMenu() {
                     cin>>mainchar.Name;
                     cout<<endl;
                     int position=load();
+                    if(position>2) {
+                        int statpt=(mainchar.Level-1)*5;
+                        cout<<"Due to loading a save, please reallocate your stats."<<endl;
+                        statAllocation(statpt);
+                        cout<<endl;
+                    }
                     if(position==0)
                         cout<<"Error."<<endl;
                     else if(position==1)
@@ -174,9 +180,15 @@ void openingMenu() {
                         Chapter1_pt1();
                     else if(position==3)
                         Chapter1_pt2();
+                    else if(position==4) {
+                        if(eventCounter[0]<4)
+                            Chapter1_pt2a();
+                        else
+                            Chapter1_pt2b();
+                    }
                     else {
-                    cout<<"\nYou have currently completed the demo."<<endl;
-                    cout<<"Please wait until further updates have been added."<<endl;
+                        cout<<"You have currently completed the demo."<<endl;
+                        cout<<"Please wait until further updates have been added."<<endl;
                     }
                 }
                 else {

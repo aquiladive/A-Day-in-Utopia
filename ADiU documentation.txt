@@ -81,7 +81,7 @@ x Should there be a scalability factor for monsters? Ie, their stats increase ba
 x Remember 0=false, 1=true (or similar) for all integer-based functions and variables, so that consistency is ensured.
 
 x eventCounter[0] is for Lana, 1 means captain has been spoken to, 2 means second mate has been spoken to, 3 means Lana has been given the bottle
-  of essential scent, 4 means she has been saved and added to the party, 5 and 7 are responses (open anger or not) to her revelation, 6 and 8 are for cooling down.
+  of essential scent, 4 means she has been saved and added to the party, 5 is anger to her revelation, 6 is for cooling down.
 x eventCounter[1] is about Gehrman, 1 means you've spoken to the captain, 2 means you've spoken to Azik about it
 x eventCounter[2] is about religious belief.
 x eventCounter[3] is for exploring the buildings.

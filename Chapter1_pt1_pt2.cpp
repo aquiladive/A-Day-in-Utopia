@@ -246,6 +246,7 @@ void Chapter1_pt2() {
                 cout<<"\nShe watches you with surprise, and then a growing... you're not sure how to put it? Pleasant resignation?"<<endl;
                 cout<<"Despite her firm words, there could be no way she faced the situation with that much inner calm. She must have feared dying at some point, just like you did."<<endl;
                 cout<<"There are answers you desperately want to seek from her, but travelling together, you can leave it for when both of you are safe."<<endl;
+                eventCounter[0]=4;
                 generateSave(3);
                 cout<<"\n(The game has been saved.)"<<endl;
                 Chapter1_pt2b();

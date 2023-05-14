@@ -136,19 +136,17 @@ void explore1_Ch1_2b() {
             }
             if(eventCounter[0]==5)
                 eventCounter[0]=6;
-            else if(eventCounter[0]==7)
-                eventCounter[0]=8;
             break;
 
             case 4:
-            if(eventCounter[0]==5 || eventCounter[0]==7)
+            if(eventCounter[0]==5)
                 cout<<"You don't think you can speak to Ms. Lana yet. It'd be better to do something else, even if you've taken care of it before."<<endl;
-            else if(eventCounter[0]==6 || eventCounter[0]==8) {
+            else if(eventCounter[0]==6) {
                 cout<<"You feel your emotions have settled enough to talk civilly with Ms. Lana again."<<endl;
                 lanaConverse2b();
             }
             else
-                lanaConverse2b();            
+                lanaConverse2b();       
             break;
             
             case 5:
@@ -201,6 +199,7 @@ void lanaConverse2b() {
         }
         }
         if(eventCounter[0]==4) {
+            eventCounter[0]=5;
             cout<<"\nYou were planning to leave these questions for when the two of you had some space to speak without the hanging tension of death, but it hits you that such a perfect time isn't going to fall into your laps soon.\n"<<endl;
             cin>>blankSpace;
             cout<<"Ms. Lana licks her lips, her expression troubled, and you barely resist from pressing her more."<<endl;
@@ -215,7 +214,6 @@ void lanaConverse2b() {
             cout<<"\nDo you get openly angry?"<<endl;
             int anger=yn();
             if(anger==1) {
-                eventCounter[0]=5; //5 is being openly angry with Lana, 6 is getting past it, 7 is not being angry, 8 is being angry but continuing a civil conversation
                 cout<<"YOU: Was the secrecy worth it?"<<endl;
                 cout<<"Your tone is colder than it has ever been."<<endl;
                 cout<<"YOU: There's exactly two of us standing here. The other nine could be dead or worse. People I requested sign up, my own friends..."<<endl;
@@ -241,7 +239,6 @@ void lanaConverse2b() {
                 cout<<"She frowns, looking as if she's about to speak, then stops, thinking better of it."<<endl;
                 cout<<"You're glad. While the situation isn't one in which you can rage like you wish, you're not in any mood to talk to her."<<endl;
                 cout<<"You'd like to have some time by yourself before it comes to that."<<endl;
-                eventCounter[0]=7;
                 end=1;
             }
         }

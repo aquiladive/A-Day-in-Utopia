@@ -1,9 +1,11 @@
 #include<iostream>
+#include<cstdlib>
 #include "ADayinUtopia.cpp"
 
 //--
 
 void Chapter1_pt2b(), explore1_Ch1_2b(), lanaConverse2b();
+void ending3();
 
 int yn();
 int inventoryCheck();
@@ -13,6 +15,7 @@ int inventoryCheckName(string item);
 
 void Chapter1_pt2b() {
     string blankSpace;
+    int slimech, slimech2;
     //the part where Lana joins you, ie, eventCounter[0]==4
     battleCounter[0]=1;
     cout<<"You travel for quite some time together without coming across anything strange -- or at least stranger -- when three dark shapes appear from behind a building. They are masses of what looks like sticky liquid, shaking and changing shape as they slide. It reminds you of jelly, if jelly was large and moved by itself. Ms. Lana freezes and stretches a hand for you to do the same. You both watch as they slide their way through, apparently unnoticing..."<<endl;
@@ -38,6 +41,95 @@ void Chapter1_pt2b() {
         cin>>blankSpace;
         explore1_Ch1_2b();
 
+        if(eventCounter[5]==1) {
+            cout<<"You need a place to rest, and one of the buildings nearby look perfect. You gesture to Lana, who follows you in."<<endl;
+        }
+        else {
+            cout<<"You need a place to rest, but you're not sure where you can go. Luckily half the members of the expedition are carrying a canvas tent with them and Lana is one. The two of you spend hours setting up the tent, at which point the sky should have darkened, but it still retains golden-orange waves amidst the growing purple. You look down at your pocket watch, which says that the time is half past four. You're not sure what's right anymore."<<endl;
+            if(inventoryCheckName("slime remnant")==1 && (eventCounter[0]==6 || eventCounter[0]==8)) {
+                cout<<"LANA: I wouldn't suggest this if the situation wasn't so serious..."<<endl;
+                cout<<"You are put on guard by her solemn tone. The two of you did have some casual conversations prior, but after she revealed the truth, you haven't quite been interested in speaking."<<endl;
+                cout<<"YOU: What is it?"<<endl;
+                cout<<"LANA: Do you still have what you took from the monster?"<<endl;
+                cout<<"You nod, pulling out the sphere."<<endl;
+                cout<<"LANA: It's a Beyonder characteristic."<<endl;
+                cout<<"Your eyes widen."<<endl;
+                cin>>blankSpace;
+                cout<<"LANA: But I can't say for which pathway nor can I guarantee that consuming it is safe, with how we found it."<<endl;
+                cout<<"LANA: My purification would remove any corruption, but Beyonder characteristics inherently contain madness."<<endl;
+                cout<<"YOU: You think we should make use of this?"<<endl;
+                cout<<"LANA: That's right. There are two ways. One is to have it influence an item and get a Sealed Artifact--a magical item--out of it. The other... is to consume it."<<endl;
+                cout<<"LANA: I would not recommend the second option at all. There is a very high chance you might die or, if you do not, be turned into a monster much like the ones we've encountered. There are too many doubts surrounding this item. But I wanted to let you know what I do; that there are two options."<<endl;
+                cout<<"Lana is a lot more skilled in this than you. She could be lying, but there's really no reason. So do you..."<<endl;
+                cout<<"1) ask how to make a Sealed Artefact"<<endl;
+                cout<<"2) ask how to consume the slime remnant"<<endl;
+                slimech=chartoint();
+                while(slimech<1 || slimech>2) {
+                    cout<<"Invalid choice."<<endl;
+                    slimech=chartoint();
+                }
+                switch(slimech) {
+                    case 1:
+                    break;
+                    case 2: cout<<"YOU: With the situation the way it is, death isn't so bad."<<endl;
+                    cout<<"Lana gapes at you."<<endl;
+                    cout<<"YOU: Not that I plan on dying, but the chance of becoming a magic user--Beyonder--as low as it is, is worth the risk."<<endl;
+                    cout<<"LANA: If you become a monster..."<<endl;
+                    cout<<"YOU: Kill me, I guess. As I am, it's not like I'm much help here."<<endl;
+                    cout<<"LANA: "<<mainchar.Name<<", please reconsider. You have been of great help as you are, and the chance of your survival if you go through with this is something like 1%."<<endl;
+                    cout<<"Do you change your mind?"<<endl;
+                    slimech2=yn();
+                    if(slimech2==1)
+                        slimech=0;
+                    else {
+                        cout<<"Maybe it's that your friends are out there going through things just as horrific as you, with nobody like Lana to help. Maybe it was the moment you saw all those mushrooms and your heart dropped to your stomach."<<endl;
+                        cout<<"Life doesn't matter all that much."<<endl;
+                        cout<<"YOU: Well, that's kind of you. But I'm ready to take the risk."<<endl;
+                        cout<<"Lana frowns, clenching her fists."<<endl;
+                        cout<<"YOU: Tell me how to do this."<<endl;
+                        cout<<"LANA: ..."<<endl;
+                        cout<<"YOU: Ms. Lana. This is my choice."<<endl;
+                        cout<<"After another minute of silence, she finally speaks reluctantly."<<endl;
+                        cout<<"LANA: Swallow it."<<endl;
+                        cout<<"YOU: What?"<<endl;
+                        cout<<"LANA: Generally a potion can be made using Beyonder characteristics to make the process safer, but that's only possible if you know what pathway and sequence the characteristic is for, as well as the formula connected to it."<<endl;
+                        cout<<"LANA: In this case, we have neither of that."<<endl;
+                        cout<<"You look down at the grayish core, feeling a bit disgusted. Are you really ready for this?"<<endl;
+                        slimech2=yn();
+                        if(slimech2==0)
+                            slimech=0;
+                        else {
+                            cout<<"With a leap of faith, you down what you're holding."<<endl;
+                            cout<<"It slides down your throat, both slimy and rough in a way you can't quite describe. Your stomach turns and you force yourself to keep it down."<<endl;
+                            cout<<"In that moment, you feel a change starting from the innermost part of you."<<endl;
+                            cout<<"It's like the very particles of your existence are being overwritten, flashes of darkness in your vision, interspersed with red lightning and endless cloudy skies, screams and whispers and distinctly inhuman sounds residing in your ears and refusing to leave."<<endl;
+                            cout<<"You can't move. You can't make a sound. You're no longer sure who 'you' are, if there is some life in you or if you are simply a part of your visions without thought and feeling."<<endl;
+                            cout<<"No, there is feeling. There's pain, a place that must be your head pounding on the verge of splintering, a place that must be your chest expanding and expanding and then contracting, taking away your breath like a sledgehammer."<<endl;
+                            cout<<"There's another voice, screaming and screaming, but it's not louder than everything you're already hearing, so easily drowned."<<endl;
+                            srand(time(0));
+                            int chance=rand()%100+1;
+                            if(chance<90)
+                                ending3();
+                            else {
+                                mainchar.beyonder(eventCounter[2]);
+                                cout<<"The voice becomes clearer, cutting through the rest. It's saying a word you quite can't grasp..."<<endl;
+                                cout<<"..."<<mainchar.Name<<"!..."<<endl;
+                                cout<<"No, you do know it."<<endl;
+                                cout<<"That..."<<endl;
+                                cout<<"You remember family. Friends. People. The cities of Tingen and Backlund."<<endl;
+                                cout<<"That word is a name. Your name."<<endl;
+                                cout<<"It's who you are."<<endl;
+                                cout<<"Slowly, clarity returns to you, pushing aside the nonsensical and maddening things from before. You feel like you've gotten a grasp of yourself."<<endl;
+                                cout<<"Surviving the experience, you gain new knowledge."<<endl;
+                                cout<<"You're not sure how, but you know now that you have become a "<<mainchar.Path<<"."<<endl;
+                                }
+                            }
+                        }
+                    break;
+                    default: cout<<"Invalid choice."<<endl;
+                }
+            }
+        }
     }
 
     else {
@@ -81,7 +173,7 @@ void explore1_Ch1_2b() {
         cout<<"3) look closer at the slime remnants"<<endl;
         cout<<"4) talk to Lana"<<endl;
         cout<<"5) end"<<endl;
-        cin>>exploreChoice;
+        exploreChoice=chartoint();
         switch(exploreChoice) {
             
             case 1:
@@ -154,10 +246,10 @@ void explore1_Ch1_2b() {
             surety=yn();
             if(surety==1) {
                 generateSave(4);
-                cout<<"(The game has been saved.)"<<endl;
+                /*cout<<"(The game has been saved.)"<<endl;
                 cout<<"\nFor now, the demo ends here."<<endl;
                 cout<<"Thank you for playing."<<endl;
-                exit(0);
+                exit(0);*/
             }
         }
     } while(surety!=1);
@@ -177,7 +269,7 @@ void lanaConverse2b() {
         }
         else
             cout<<"4) end"<<endl;
-        cin>>converse;
+        converse=chartoint();
         if(eventCounter[0]==4 && converse!=4) {
             switch(converse) {
             case 1:
@@ -196,7 +288,8 @@ void lanaConverse2b() {
             break;
 
             default: cout<<"Invalid choice."<<endl;
-        }
+            lanaConverse2b();
+            }
         }
         if(eventCounter[0]==4) {
             eventCounter[0]=5;

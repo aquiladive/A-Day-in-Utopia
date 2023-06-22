@@ -310,6 +310,7 @@ void ending1() {
     cout<<"\n..."<<endl;
     cout<<"The team embarks on the trip to Utopia on schedule the next day. Your radio communication with the Society halts half an hour after you land on the island. None of you return alive."<<endl;
     cout<<"And so Utopia has yet another tale added to its mysteries."<<endl;
+    cin>>blankSpace;
     cout<<"THE END"<<endl;
     cout<<"..."<<endl;
     cin>>blankSpace;
@@ -335,6 +336,7 @@ void ending2() {
     cout<<"You should be worried, but strangely calm instead, your eyes flutter shut."<<endl;
     cout<<"And so the pollen that falls on you feeds on you, melting through your skin and not leaving even bones behind."<<endl;
     cout<<"A new tale finds its way into the myths of Utopia."<<endl;
+    cin>>blankSpace;
     cout<<"THE END"<<endl;
     cout<<"..."<<endl;
     cin>>blankSpace;
@@ -353,6 +355,7 @@ void battleEnding() {
     cout<<"\nYou can no longer hold yourself upright."<<endl;
     cout<<"Every breath hurts, and your vision blurs at the edges as darkness takes over."<<endl;
     cout<<"You collapse, consciousness fleeing you to never return, and your body remains forever in the ruins of Utopia."<<endl;
+    cin>>blankSpace;
     cout<<"THE END"<<endl;
     cout<<"..."<<endl;
     cin>>blankSpace;

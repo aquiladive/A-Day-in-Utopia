@@ -4,16 +4,17 @@ Documentation Log for "A Day in Utopia"
 v0.0.4:
 -------
 x Chapter 1 pt 2b (aka the Lana route) expanded on, one battle done, one exploration section done.
+x One post-exploration scene (opportunity to become a Beyonder) done.
 x Main file further divided into story subsections to reduce denseness of code.
 x battleMechanics() updated to include NPC action.
-x Character class updated to include Beyonder pathway choice, although story-wise it hasn't been reached yet.
+x Character class updated to include Beyonder pathway choice.
 x battleCounter added to keep track of events that cause changes in battle (ie low player health, NPC assistance).
 x NPC switched from private to public class due to above need for accessing their variables.
 x battleMechanics() also updated to include the possibility of NPC spell-usage.
 x Character class changed to 1) include the MP variable, 2) make Status a string array.
 x Finally rehauled the save/load function to be file-based rather than a savecode string. This makes saving and loading a lot easier as well as capable of storing more info than just eventCounter.
 
-[bugs in this version: ...]
+[bugs in this version: 1) at certain points invalid choice causes error (either skipping dialogue or creating infinite loop)]
 
 
 v0.0.3:
@@ -23,9 +24,9 @@ x Savecode generation and degradation into eventCounter array well-defined.
 x Separate event counters combined into one to make save function implementation easier.
 x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
 
-[bugs in this version: 2) save function cannot keep track of character stats.
+[bugs in this version: 1) save function cannot keep track of character stats.
                             -solution: allowing players to reallocate stats upon loading (perhaps temporary, have to look into fixing stats as well)
-                       3) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
+                       2) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
                             -solution: chartoint() function converts string to int by taking first character of input and subtracting '0'.
 
 
@@ -34,6 +35,7 @@ Latest changes in detail:
 -------------------------
 1) Chapter 1 pt 2b
 x Expanded upon to include a battle and an exploration (for the slime encounter), and one battle (for the wolf encounter).
+x Post-exploration scene included for slime encounter if player has collected slime remnant and conversed with Lana.
 x 1.2a still not done.
 
 2) Slime stats, Lana's emblem
@@ -67,7 +69,7 @@ x This is to avoid infinite looping of "Invalid input" when user provides a char
 Things to do:
 -------------
 1) Complete Chapter 1 part 2b.
-2) Save to file character stats.
+2) Save to file character stats + battleCounter.
 3) Maybe use hit chance / effect resistance as an in-built factor to make LUCK matter in battle (currently intended as event-only factor)
 
 

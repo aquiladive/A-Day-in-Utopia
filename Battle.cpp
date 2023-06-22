@@ -11,6 +11,8 @@ int battleCounter[3]; //for factors that affect certain battles
 
 //--
 
+int chartoint();
+
 int itemUse(string Item);
 void inventoryArrange();
 void levelUp(int battleExp);
@@ -253,14 +255,14 @@ void battleMechanic(int opponents[]) {
             
             cout<<"\nYour turn:"<<endl;
             cout<<"Do you:\n1) Attack\n2) Defend\n3) Use Item"<<endl;
-            cin>>choice;
+            choice=chartoint();
             switch(choice) {
                 case 1:
                 cout<<"Which enemy do you attack?"<<endl;
                 for(int i=1;i<=enemyCount;i++) {
                     cout<<i<<") "<<Enemy[i-1].Name<<endl;
                 }
-                cin>>attackChoice;
+                attackChoice=chartoint();
                 if(attackChoice>0 && attackChoice<=enemyCount) {
                     attackChoice--;
                     damage=Reader.attack()*damageBonus-Enemy[attackChoice].DEF;

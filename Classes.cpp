@@ -46,7 +46,6 @@ class Protag: public Character {
     }
 
     int beyonder(int belief) {
-        srand(time(0));
         if(belief==1) {
             //evernight
             int pathway=rand()%3+1;
@@ -58,12 +57,11 @@ class Protag: public Character {
                 Path="Corpse Collector";
                 break;
                 case 3: Beyonder[0]=3;
-                Path="Warrior"; //find out the name of Combat sequence 9
+                Path="Warrior";
                 break;
             }
         }
         else if(belief==2) {
-            //storm
             Beyonder[0]=4;
             Path="Sailor";
         }
@@ -75,7 +73,7 @@ class Protag: public Character {
                 Path="Apothecary";
                 break;
                 case 2: Beyonder[0]=6;
-                Path=""; //find out mother pathway
+                Path="Planter";
                 break;
             }
         }
@@ -117,7 +115,7 @@ class Protag: public Character {
                 Path="Psychologist";
                 break;
                 case 3: Beyonder[0]=14;
-                Path="Shepherd"; //hanged man sequence 9
+                Path="Secrets Supplicant"; //hanged man sequence 9
                 break;
             }
         }

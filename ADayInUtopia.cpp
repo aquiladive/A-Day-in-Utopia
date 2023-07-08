@@ -14,6 +14,7 @@
 #include "Classes.cpp"
 #include "Save_Load.cpp"
 #include "Battle.cpp"
+#include "Testing.cpp"
 #include "Prologue.cpp"
 #include "Chapter1_pt1_pt2.cpp"
 #include "Chapter1_pt2a.cpp"
@@ -30,6 +31,7 @@ int yn(), chartoint();
 int inventoryCheck();
 int inventoryCheckName(string item);
 void inventoryArrange();
+int battleTest();
 
 void Tutorial1(), Tutorial2(), Tutorial3(); //1 explains exploration, 2 explains battle, 3 explains stats
 void ending1(), ending2();
@@ -113,7 +115,7 @@ void openingMenu() {
     cout<<"1) Start\t 2) Load"<<endl;
     cout<<"3) About\t 4) Quit"<<endl;
     cout<<"(insert choice)"<<endl;
-    int opchoice, surety=0;
+    int opchoice, test=1, surety=0;
     cin>>opchoice;
     switch (opchoice) {
         case 1:
@@ -204,6 +206,12 @@ void openingMenu() {
         
         case 4:
         exit(0);
+        
+        case 63:
+        while(test==1)
+            test=battleTest();
+        break;
+        
         default:
         cout<<"Invalid choice.\n";
     }
@@ -341,6 +349,30 @@ void ending2() {
     cout<<"..."<<endl;
     cin>>blankSpace;
     cout<<"Protip: It's good to know when to watch out for others and when to watch out for yourself."<<endl;
+    cout<<"1. Return to Menu\t\t 2. Quit"<<endl;
+    int ch;
+    cin>>ch;
+    if(ch==1)
+        openingMenu();
+    else
+        exit(0);
+}
+
+void ending3() {
+    string blankSpace;
+    cout<<"You lose yourself in the sights and sounds and tastes and smells."<<endl;
+    cout<<"Even as the senseless visions collapse, your surroundings are still so strange."<<endl;
+    cout<<"There's an oddly-shaped body in front of you, like the figures you saw collapsed before, and it's wrong."<<endl;
+    cout<<"The world shouldn't consist of such figures. There's a different form that's more perfect, a different form that everything should reach."<<endl;
+    cout<<"You lunge forward, the air around you twisting, the powers you know you possess revealing themselves. You'll be kind enough to impart your perfection to everything else."<<endl;
+    cout<<"But as you do so, blinding light fills your sight, bringing a fierce burning with you."<<endl;
+    cout<<"You writhe and try to set yourself upright, but just as you manage, a beam cuts through you."<<endl;
+    cout<<"Over and over and over, it cuts through you, until you lose consciousness."<<endl;
+    cin>>blankSpace;
+    cout<<"THE END"<<endl;
+    cout<<"..."<<endl;
+    cin>>blankSpace;
+    cout<<"Protip: There is opportunity in danger, but there is also a lot of danger."<<endl;
     cout<<"1. Return to Menu\t\t 2. Quit"<<endl;
     int ch;
     cin>>ch;

@@ -13,21 +13,9 @@ x NPC switched from private to public class due to above need for accessing thei
 x battleMechanics() also updated to include the possibility of NPC spell-usage.
 x Character class changed to 1) include the MP variable, 2) make Status a string array.
 x Finally rehauled the save/load function to be file-based rather than a savecode string. This makes saving and loading a lot easier as well as capable of storing more info than just eventCounter.
+x Added a testing level for battle to test various items / Beyonder abilities / etc as they show up in-game.
 
 [bugs in this version: 1) at certain points invalid choice causes error (either skipping dialogue or creating infinite loop)]
-
-
-v0.0.3:
--------
-x Save function rehauled to be string instead of integer.
-x Savecode generation and degradation into eventCounter array well-defined.
-x Separate event counters combined into one to make save function implementation easier.
-x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
-
-[bugs in this version: 1) save function cannot keep track of character stats.
-                            -solution: allowing players to reallocate stats upon loading (perhaps temporary, have to look into fixing stats as well)
-                       2) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
-                            -solution: chartoint() function converts string to int by taking first character of input and subtracting '0'.
 
 
 
@@ -98,6 +86,18 @@ x battleCounter[1] is for situations where player starts battle at 3/4 health. (
 --------------
 Older versions
 --------------
+
+v0.0.3:
+-------
+x Save function rehauled to be string instead of integer.
+x Savecode generation and degradation into eventCounter array well-defined.
+x Separate event counters combined into one to make save function implementation easier.
+x Chapter 1 finished upto eventCounter[4] (previously c1EventCounter[2]).
+
+[bugs in this version: 1) save function cannot keep track of character stats.
+                            -solution: allowing players to reallocate stats upon loading (perhaps temporary, have to look into fixing stats as well)
+                       2) giving string input for an integer option (ie: belief) causes "invalid choice" to be repeated ad-infinitum.
+                            -solution: chartoint() function converts string to int by taking first character of input and subtracting '0'.
 
 v0.0.2:
 -------

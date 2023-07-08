@@ -61,7 +61,7 @@ void Chapter1_pt2b() {
                 cout<<"LANA: That's right. There are two ways. One is to have it influence an item and get a Sealed Artifact--a magical item--out of it. The other... is to consume it."<<endl;
                 cout<<"LANA: I would not recommend the second option at all. There is a very high chance you might die or, if you do not, be turned into a monster much like the ones we've encountered. There are too many doubts surrounding this item. But I wanted to let you know what I do; that there are two options."<<endl;
                 cout<<"Lana is a lot more skilled in this than you. She could be lying, but there's really no reason. So do you..."<<endl;
-                cout<<"1) ask how to make a Sealed Artefact"<<endl;
+                cout<<"1) ask how to make a Sealed Artifact"<<endl;
                 cout<<"2) ask how to consume the slime remnant"<<endl;
                 slimech=chartoint();
                 while(slimech<1 || slimech>2) {

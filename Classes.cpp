@@ -39,6 +39,7 @@ class Protag: public Character {
     int Level=1;
     int battleExp=0;
     int Beyonder[2];
+    int Ability[3];
     string Path;
     
     int attack() {
@@ -46,6 +47,7 @@ class Protag: public Character {
     }
 
     int beyonder(int belief) {
+        Beyonder[1]=9; //sequence number
         if(belief==1) {
             //evernight
             int pathway=rand()%3+1;
@@ -119,6 +121,7 @@ class Protag: public Character {
                 break;
             }
         }
+        Ability[0]=Beyonder[0]; //all pathways give a passive ability
     }
 };
 
